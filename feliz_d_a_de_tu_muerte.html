@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Día de Tu Muerte | La Bastarsion Factory</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Creepster (Títulos) y Syne (Texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bastDark: '#0a050f',
+            bastCard: 'rgba(20, 10, 25, 0.7)',
+            bastOrange: '#ff5500',
+            bastRed: '#e60000',
+            bastPurple: '#800080'
+          },
+          fontFamily: {
+            horror: ['"Creepster"', 'cursive'],
+            syne: ['"Syne"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilos Generales y Scrollbar */
+    body {
+      background-color: #0a050f;
+      color: #e5e7eb;
+      overflow-x: hidden;
+      font-family: 'Syne', sans-serif;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #05020a; }
+    ::-webkit-scrollbar-thumb { background: #ff5500; border-radius: 4px; }
+
+    /* Efectos Neon */
+    .text-glow-orange { text-shadow: 0 0 15px rgba(255, 85, 0, 0.8), 0 0 30px rgba(255, 85, 0, 0.5); }
+    .text-glow-red { text-shadow: 0 0 15px rgba(230, 0, 0, 0.8), 0 0 30px rgba(230, 0, 0, 0.5); }
+    .box-glow-purple { box-shadow: 0 0 20px rgba(128, 0, 128, 0.3); border: 1px solid rgba(128, 0, 128, 0.5); }
+    .box-glow-orange { box-shadow: 0 0 20px rgba(255, 85, 0, 0.2); border: 1px solid rgba(255, 85, 0, 0.4); }
+
+    /* Glassmorphism */
+    .glass-card {
+      background: rgba(15, 8, 20, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(255, 85, 0, 0.4);
+      border-color: rgba(255, 85, 0, 0.6);
+    }
+
+    /* Niebla Animada */
+    .fog-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .fog-img {
+      position: absolute;
+      height: 100vh;
+      width: 300vw;
+      z-index: 1;
+      opacity: 0.15;
+      background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png') repeat-x;
+      background-size: contain;
+      animation: fogLayer 60s linear infinite;
+    }
+    .fog-img-2 {
+      background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png') repeat-x;
+      background-size: contain;
+      animation: fogLayer 40s linear infinite;
+      opacity: 0.1;
+    }
+    @keyframes fogLayer {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-200vw, 0, 0); }
+    }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="relative selection:bg-bastOrange selection:text-white">
+
+  <!-- Partículas de fondo -->
+  <canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+  
+  <div class="fixed inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-bastPurple/10 via-bastDark to-black -z-10"></div>
+
+  <header class="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2">
+        <i class="fas fa-skull text-bastOrange text-xl"></i>
+        <span class="font-horror text-xl text-white tracking-widest hidden sm:block">LA BASTARSION FACTORY</span>
+      </a>
+      <nav class="flex gap-4 md:gap-8 text-xs font-bold uppercase tracking-wider text-gray-300">
+        <a href="#atracciones" class="hover:text-bastOrange transition">Atracciones</a>
+        <a href="#tickets" class="hover:text-bastOrange transition">Boletos</a>
+        <a href="#organizadores" class="hover:text-bastOrange transition">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-16">
+    <!-- HERO SECTION -->
+    <section id="hero" class="min-h-[95vh] flex flex-col items-center justify-center text-center px-4 relative">
+      <div class="fog-container">
+        <div class="fog-img"></div>
+        <div class="fog-img fog-img-2"></div>
+      </div>
+      
+      <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center mt-10 reveal active">
+        <!-- Tag -->
+        <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm shadow-[0_0_15px_rgba(230,0,0,0.3)]">
+          <i class="fas fa-exclamation-triangle"></i> Edición Exclusiva • Solo Mayores de Edad
+        </div>
+
+        <!-- Títulos -->
+        <h2 class="text-bastOrange font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-2">
+          By: La Bastarsion Factory
+        </h2>
+        <h1 class="font-horror text-6xl sm:text-8xl md:text-9xl text-white text-glow-red tracking-wide mb-6 uppercase leading-tight">
+          Feliz Día de Tu Muerte
+        </h1>
+
+        <!-- Descripción -->
+        <p class="text-gray-300 text-sm md:text-base max-w-3xl leading-relaxed mb-8 font-medium">
+          La única y original fiesta de halloween de la zona tendrá su edición <strong class="text-bastOrange">MÁS GRANDE</strong> de la historia. Experimenta tus miedos en carne propia como nunca antes, con criaturas escondidas en los rincones menos esperados desde los primeros minutos del evento hasta el último suspiro de la noche.
+        </p>
+
+        <!-- Fecha/Hora -->
+        <div class="flex items-center gap-3 bg-black/50 px-6 py-3 rounded-xl border border-white/10 text-white font-bold tracking-wide mb-10 shadow-lg">
+          <i class="far fa-calendar-alt text-bastOrange"></i> Sábado 31 de Octubre del 2026 • 8:00 P.M.
+        </div>
+
+        <!-- Botones -->
+        <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
+          <a href="#tickets" class="px-8 py-4 bg-gradient-to-r from-bastRed to-bastOrange text-white font-bold uppercase tracking-widest rounded-xl hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,85,0,0.4)] text-sm">
+            ¿Tomarás el riesgo?
+          </a>
+          <a href="#reglas" class="px-8 py-4 glass-card text-gray-200 hover:text-white font-bold uppercase tracking-widest rounded-xl border border-white/20 transition-all text-sm flex items-center justify-center gap-2">
+            <i class="fas fa-scroll"></i> Reglamento
+          </a>
+        </div>
+
+        <!-- Scroll Down -->
+        <div class="mt-16 animate-bounce">
+          <a href="#countdown" class="text-gray-500 hover:text-bastOrange flex flex-col items-center gap-2 text-xs font-bold tracking-widest uppercase transition-colors">
+            Cae hacia las tinieblas <i class="fas fa-arrow-down"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section id="countdown" class="py-20 px-4 border-y border-white/5 bg-black/40 backdrop-blur-sm reveal">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="font-horror text-4xl text-bastOrange tracking-widest mb-10 text-glow-orange">El Tiempo Corre...</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div class="glass-card box-glow-purple rounded-2xl p-6">
+            <span id="dias" class="text-5xl md:text-6xl font-black text-white">00</span>
+            <p class="text-xs uppercase tracking-widest text-purple-400 mt-2 font-bold">Días</p>
+          </div>
+          <div class="glass-card box-glow-purple rounded-2xl p-6">
+            <span id="horas" class="text-5xl md:text-6xl font-black text-white">00</span>
+            <p class="text-xs uppercase tracking-widest text-purple-400 mt-2 font-bold">Horas</p>
+          </div>
+          <div class="glass-card box-glow-purple rounded-2xl p-6">
+            <span id="minutos" class="text-5xl md:text-6xl font-black text-white">00</span>
+            <p class="text-xs uppercase tracking-widest text-purple-400 mt-2 font-bold">Minutos</p>
+          </div>
+          <div class="glass-card box-glow-purple rounded-2xl p-6">
+            <span id="segundos" class="text-5xl md:text-6xl font-black text-bastRed">00</span>
+            <p class="text-xs uppercase tracking-widest text-red-400 mt-2 font-bold">Segundos</p>
+          </div>
+        </div>
+        
+        <p class="mt-8 text-sm font-bold text-gray-300 tracking-wide bg-red-900/20 inline-block px-6 py-2 rounded-lg border border-red-900/50">
+          Puertas abren a las 8:00 P.M. • Límite de acceso estricto a las 10:30 P.M.
+        </p>
+      </div>
+    </section>
+
+    <!-- ATRACCIONES -->
+    <section id="atracciones" class="py-24 px-4 reveal">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-horror text-5xl md:text-6xl text-white tracking-widest text-glow-red">ATRACCIONES DE LA NOCHE</h2>
+          <p class="text-gray-400 mt-4 text-sm font-medium">Todo esto te espera en la edición más grande de la historia.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5 hover:border-bastOrange/50">
+            <i class="fas fa-hippo text-4xl text-bastOrange mb-4"></i> <!-- Toro mecanico representation -->
+            <h3 class="font-bold text-white uppercase tracking-wider text-sm">Toro Mecánico</h3>
+          </div>
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5 hover:border-bastPurple/50">
+            <i class="fas fa-headphones text-4xl text-purple-500 mb-4"></i>
+            <h3 class="font-bold text-white uppercase tracking-wider text-sm">Ambientación de DJ</h3>
+          </div>
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5 hover:border-bastRed/50">
+            <i class="fas fa-ghost text-4xl text-bastRed mb-4"></i>
+            <h3 class="font-bold text-white uppercase tracking-wider text-sm">Piñata Diabólica</h3>
+          </div>
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5 hover:border-yellow-500/50">
+            <i class="fas fa-trophy text-4xl text-yellow-500 mb-4"></i>
+            <h3 class="font-bold text-white uppercase tracking-wider text-sm">Concurso de Disfraces</h3>
+          </div>
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5 hover:border-blue-500/50">
+            <i class="fas fa-drum text-4xl text-blue-500 mb-4"></i>
+            <h3 class="font-bold text-white uppercase tracking-wider text-sm">Banda en Vivo</h3>
+          </div>
+          <div class="glass-card rounded-2xl p-6 text-center box-glow-orange border border-bastOrange/50">
+            <i class="fas fa-star text-4xl text-white mb-4 animate-pulse"></i>
+            <h3 class="font-bold text-white uppercase tracking-wider text-sm">Actividad Estelar Sorpresa</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKETS -->
+    <section id="tickets" class="py-24 px-4 bg-black/40 border-t border-white/5 relative reveal">
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-12">
+          <h2 class="font-horror text-5xl md:text-6xl text-white tracking-widest text-glow-orange">ASEGURA TU LUGAR</h2>
+          <p class="text-gray-400 mt-4 text-sm font-medium">Elige tu acceso. Recuerda que los precios cambian el día del evento.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          
+          <!-- Preventa Hombres -->
+          <div class="glass-card rounded-3xl p-8 border border-white/10 flex flex-col relative">
+            <div class="absolute -top-4 right-6 bg-bastOrange text-white text-xs font-bold uppercase px-4 py-1 rounded-full shadow-lg">Preventa</div>
+            <h3 class="text-2xl font-black text-white uppercase tracking-wider mb-2">Hombres</h3>
+            <div class="my-6 space-y-4">
+              <div class="flex justify-between items-end border-b border-white/10 pb-2">
+                <span class="text-gray-300 text-sm font-medium">Con Disfraz</span>
+                <span class="text-4xl font-black text-white">$50</span>
+              </div>
+              <div class="flex justify-between items-end border-b border-white/10 pb-2">
+                <span class="text-gray-300 text-sm font-medium">Sin Disfraz</span>
+                <span class="text-4xl font-black text-white">$100</span>
+              </div>
+            </div>
+            <a href="#organizadores" class="mt-auto block w-full py-3.5 text-center bg-white/10 hover:bg-bastOrange text-white font-bold rounded-xl text-sm uppercase tracking-wider transition-colors">
+              Adquirir Preventa
+            </a>
+          </div>
+
+          <!-- Preventa Mujeres -->
+          <div class="glass-card rounded-3xl p-8 box-glow-purple border-bastPurple/50 flex flex-col relative transform md:-translate-y-4">
+            <div class="absolute -top-4 right-6 bg-bastPurple text-white text-xs font-bold uppercase px-4 py-1 rounded-full shadow-lg">Preventa Femenina</div>
+            <h3 class="text-2xl font-black text-white uppercase tracking-wider mb-2">Mujeres</h3>
+            <div class="my-6 space-y-4">
+              <div class="flex justify-between items-end border-b border-white/10 pb-2">
+                <span class="text-gray-300 text-sm font-medium">Con Disfraz</span>
+                <span class="text-4xl font-black text-green-400">¡GRATIS!</span>
+              </div>
+              <div class="flex justify-between items-end border-b border-white/10 pb-2">
+                <span class="text-gray-300 text-sm font-medium">Sin Disfraz</span>
+                <span class="text-4xl font-black text-white">$50</span>
+              </div>
+            </div>
+            <a href="#organizadores" class="mt-auto block w-full py-3.5 text-center bg-gradient-to-r from-bastPurple to-pink-600 hover:brightness-110 text-white font-bold rounded-xl text-sm uppercase tracking-wider transition-all shadow-lg">
+              Adquirir Preventa
+            </a>
+          </div>
+
+          <!-- General Día del Evento -->
+          <div class="glass-card rounded-3xl p-8 border border-white/10 flex flex-col relative">
+            <div class="absolute -top-4 right-6 bg-gray-600 text-white text-xs font-bold uppercase px-4 py-1 rounded-full">Taquilla</div>
+            <h3 class="text-2xl font-black text-white uppercase tracking-wider mb-2">Día del Evento</h3>
+            <p class="text-xs text-gray-400 mb-4">Acceso general sujeto a disponibilidad</p>
+            <div class="my-4">
+              <div class="flex justify-between items-end border-b border-white/10 pb-2">
+                <span class="text-gray-300 text-sm font-medium">Tarifa Única</span>
+                <span class="text-4xl font-black text-white">$150</span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 italic mt-2">(Sin condición de disfraz)</p>
+            <a href="#organizadores" class="mt-auto block w-full py-3.5 text-center border border-white/20 hover:border-white text-white font-bold rounded-xl text-sm uppercase tracking-wider transition-colors mt-8">
+              Contactar
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Warning Message -->
+        <div class="max-w-4xl mx-auto mt-12 bg-red-950/30 border border-bastRed/50 rounded-2xl p-6 flex flex-col md:flex-row gap-4 items-center">
+          <i class="fas fa-skull-crossbones text-4xl text-bastRed"></i>
+          <div>
+            <h4 class="text-red-400 font-bold uppercase tracking-wider mb-1">Advertencia Importante</h4>
+            <p class="text-gray-300 text-sm font-medium leading-relaxed">
+              En caso de comprar tu preventa de disfraz y no llevarlo, <strong class="text-white">NO se te dará acceso</strong> por respeto a los demás o se cobrará el extra. Es una fiesta temática así que ¡Saca tu lado más creativo o terrorífico!
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ORGANIZADORES -->
+    <section id="organizadores" class="py-24 px-4 reveal">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-horror text-5xl text-white tracking-widest mb-4">ORGANIZADORES & VENTA DIRECTA</h2>
+          <p class="text-gray-400 text-sm max-w-2xl mx-auto">Contacta a cualquiera de nuestros organizadores oficiales para adquirir tu preventa hoy mismo vía WhatsApp o Instagram.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          
+          <!-- Org 1 -->
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-bastOrange to-bastRed flex items-center justify-center text-2xl text-white mx-auto mb-4"><i class="fas fa-user"></i></div>
+            <h3 class="font-bold text-white text-lg mb-4">Cesar Mafara</h3>
+            <div class="flex gap-2 justify-center">
+              <a href="https://www.instagram.com/cesar_mafara?vrfl=a2JyMmM5ZzZlNDVs&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/525530791281" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-green-500 flex items-center justify-center text-white transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+            </div>
+          </div>
+
+          <!-- Org 2 -->
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-bastOrange to-bastRed flex items-center justify-center text-2xl text-white mx-auto mb-4"><i class="fas fa-user"></i></div>
+            <h3 class="font-bold text-white text-lg mb-4">Angel Peralta</h3>
+            <div class="flex gap-2 justify-center">
+              <a href="https://www.instagram.com/angel.csbncas?mdxt=MTVrcjVuZDJnaWQzcA%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/525510132062" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-green-500 flex items-center justify-center text-white transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+            </div>
+          </div>
+
+          <!-- Org 3 -->
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-bastOrange to-bastRed flex items-center justify-center text-2xl text-white mx-auto mb-4"><i class="fas fa-user"></i></div>
+            <h3 class="font-bold text-white text-lg mb-4">Leonardo Perez</h3>
+            <div class="flex gap-2 justify-center">
+              <a href="https://www.instagram.com/leonardho.pr?mdxt=MTQxMnA4aXl2MGU3eA%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/525523266972" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-green-500 flex items-center justify-center text-white transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+            </div>
+          </div>
+
+          <!-- Org 4 -->
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-bastOrange to-bastRed flex items-center justify-center text-2xl text-white mx-auto mb-4"><i class="fas fa-user"></i></div>
+            <h3 class="font-bold text-white text-lg mb-4">Fernando Villasana</h3>
+            <div class="flex gap-2 justify-center">
+              <a href="https://www.instagram.com/fernando_villasana?exln=MW0xYjI3MGF6aXlrZg%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/525574500185" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-green-500 flex items-center justify-center text-white transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+            </div>
+          </div>
+
+          <!-- Org 5 -->
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-bastOrange to-bastRed flex items-center justify-center text-2xl text-white mx-auto mb-4"><i class="fas fa-user"></i></div>
+            <h3 class="font-bold text-white text-lg mb-4">Roberto Rivera</h3>
+            <div class="flex gap-2 justify-center">
+              <a href="https://www.instagram.com/roberto_riveraaa?obrf=MXVvemtyMXRhYW4yYw%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/525630763098" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-green-500 flex items-center justify-center text-white transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+            </div>
+          </div>
+
+          <!-- Org 6 -->
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-bastOrange to-bastRed flex items-center justify-center text-2xl text-white mx-auto mb-4"><i class="fas fa-user"></i></div>
+            <h3 class="font-bold text-white text-lg mb-4">Renan Rivera</h3>
+            <div class="flex gap-2 justify-center">
+              <a href="https://www.instagram.com/l_renanrivera?xtok=MXVpZmxqaHlrY2hudg%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/525582934640" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-green-500 flex items-center justify-center text-white transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+            </div>
+          </div>
+
+          <!-- Org 7 -->
+          <div class="glass-card rounded-2xl p-6 text-center border border-white/5 lg:col-start-2">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-bastOrange to-bastRed flex items-center justify-center text-2xl text-white mx-auto mb-4"><i class="fas fa-user"></i></div>
+            <h3 class="font-bold text-white text-lg mb-4">Kevin Ortega</h3>
+            <div class="flex gap-2 justify-center">
+              <a href="https://www.instagram.com/kevin_rasay?cplk=emdueHloaGY1bGoz&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/525522017893" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-green-500 flex items-center justify-center text-white transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- REGLAMENTO -->
+    <section id="reglas" class="py-24 px-4 bg-black/50 border-t border-white/5 reveal">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="font-horror text-4xl md:text-5xl text-white tracking-widest text-glow-red mb-2">TÉRMINOS Y CONDICIONES</h2>
+          <p class="text-bastOrange font-bold text-sm tracking-wider uppercase">Lectura fundamental para todos los asistentes al evento.</p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="glass-card rounded-xl p-6 flex gap-5 border-l-4 border-bastOrange">
+            <div class="text-bastOrange text-2xl"><i class="fas fa-id-card"></i></div>
+            <div>
+              <h4 class="font-bold text-white mb-1">1. Restricción de Edad</h4>
+              <p class="text-sm text-gray-400">Evento exclusivo para mayores de edad (18+). Podrá requerirse identificación oficial vigente al ingreso.</p>
+            </div>
+          </div>
+          
+          <div class="glass-card rounded-xl p-6 flex gap-5 border-l-4 border-bastPurple">
+            <div class="text-bastPurple text-2xl"><i class="fas fa-wine-bottle"></i></div>
+            <div>
+              <h4 class="font-bold text-white mb-1">2. Política de Descorche y Bebidas</h4>
+              <p class="text-sm text-gray-400">El descorche libre concluye estrictamente a las 10:30 P.M.</p>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-6 flex gap-5 border-l-4 border-yellow-500">
+            <div class="text-yellow-500 text-2xl"><i class="fas fa-crown"></i></div>
+            <div>
+              <h4 class="font-bold text-white mb-1">3. Dinámica del Concurso</h4>
+              <p class="text-sm text-gray-400">Las votaciones o deliberación del mejor disfraz se llevarán a cabo entre las 11:00 P.M. y las 12:00 A.M. Se premiará creatividad, detalle y caracterización del personaje.</p>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-6 flex gap-5 border-l-4 border-bastRed">
+            <div class="text-bastRed text-2xl"><i class="fas fa-ban"></i></div>
+            <div>
+              <h4 class="font-bold text-white mb-1">4. Derecho de Admisión y Expulsiones</h4>
+              <p class="text-sm text-gray-400">La organización se reserva el derecho de admisión. Toda persona que altere el orden público, cometa actos vandálicos o porte sustancias prohibidas será consignada a las autoridades y expulsada sin devolución monetaria.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-black py-10 text-center border-t border-white/5 relative z-10">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="font-horror text-3xl text-bastOrange tracking-widest mb-4">La Bastarsion Factory</h2>
+      <p class="text-xs text-gray-600 font-medium tracking-widest uppercase">
+        &copy; 2026 Feliz Día de Tu Muerte. Todos los derechos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Contador Regresivo
+    // Fecha objetivo: Sábado 31 de Octubre del 2026 a las 20:00:00 (8:00 PM)
+    const eventDate = new Date("October 31, 2026 20:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        document.getElementById("dias").innerText = "00";
+        document.getElementById("horas").innerText = "00";
+        document.getElementById("minutos").innerText = "00";
+        document.getElementById("segundos").innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("dias").innerText = String(days).padStart(2, "0");
+      document.getElementById("horas").innerText = String(hours).padStart(2, "0");
+      document.getElementById("minutos").innerText = String(minutes).padStart(2, "0");
+      document.getElementById("segundos").innerText = String(seconds).padStart(2, "0");
+    }
+    
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 2. Scroll Reveal Animaciones
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 100;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal(); // Trigger on load
+
+    // 3. Canvas de Partículas (Cenizas/Brasas)
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * canvas.height;
+        this.size = Math.random() * 2.5 + 0.5;
+        this.speedY = Math.random() * 1.5 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 1;
+        // Colores entre naranja y rojo
+        const isRed = Math.random() > 0.5;
+        this.color = isRed ? 'rgba(230, 0, 0, ' : 'rgba(255, 85, 0, ';
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        
+        // Efecto zig-zag sutil
+        this.speedX += (Math.random() - 0.5) * 0.1;
+        
+        if (this.y < 0) {
+          this.y = canvas.height;
+          this.x = Math.random() * canvas.width;
+        }
+      }
+      draw() {
+        ctx.fillStyle = this.color + this.opacity + ')';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      for (let i = 0; i < 80; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+  </script>
+</body>
+</html>
